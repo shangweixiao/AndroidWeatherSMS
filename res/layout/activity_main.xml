@@ -1,0 +1,286 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent"
+    android:scrollbars="vertical">
+	<LinearLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    android:padding="8dip" >
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="10dp"
+			android:orientation="horizontal" >
+		</LinearLayout>
+			
+		<LinearLayout
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical"
+		    android:background="#FFFFFF" >
+		    <LinearLayout
+			   	android:layout_width="fill_parent"
+			   	android:layout_height="wrap_content"
+			   	android:orientation="horizontal"
+			   	android:layout_marginTop="8dip" >
+			    <TextView
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content" 
+			        android:text="@string/preview"
+			        android:textStyle="bold"
+			        android:lineSpacingExtra="2dip"
+			        android:layout_gravity="center"
+			        android:gravity="center"
+			        android:textSize="20sp"/>
+			</LinearLayout>
+			<LinearLayout
+				android:layout_width="fill_parent"
+				android:layout_height="1dp"
+				android:orientation="horizontal"
+				android:background="#F0F0F0" >
+			</LinearLayout>
+			<TextView
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content" 
+		        android:text="@string/MsgExample"
+		        android:textStyle="bold"
+		        android:lineSpacingExtra="2dip" />
+		
+		    <TextView
+		        android:id="@+id/textView"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content" />
+		
+		    <TextView
+		        android:id="@+id/textCount"
+		        android:layout_width="wrap_content"
+		        android:layout_height="3dip"
+		        android:visibility="invisible" />
+		
+			<TextView
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content" 
+		        android:text="@string/alertMsg"
+		        android:textStyle="bold"
+		        android:lineSpacingExtra="2dip" />
+		
+		    <TextView
+		        android:id="@+id/textAlert"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginBottom="8dip" />
+		</LinearLayout>
+	
+	    <LinearLayout
+	   	android:layout_width="fill_parent"
+	   	android:layout_height="20dp"
+	   	android:orientation="horizontal" >
+	    </LinearLayout>
+		
+		<LinearLayout
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical"
+		    android:background="#FFFFFF" >
+		    <LinearLayout
+			   	android:layout_width="fill_parent"
+			   	android:layout_height="wrap_content"
+			   	android:orientation="horizontal"
+			   	android:layout_marginTop="8dip" >
+			    <TextView
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content" 
+			        android:text="@string/setting"
+			        android:textStyle="bold"
+			        android:lineSpacingExtra="2dip"
+			        android:layout_gravity="center"
+			        android:gravity="center"
+			        android:textSize="20sp"/>
+			</LinearLayout>
+			<LinearLayout
+				android:layout_width="fill_parent"
+				android:layout_height="1dp"
+				android:orientation="horizontal"
+				android:background="#F0F0F0" >
+			</LinearLayout>
+		 	<LinearLayout
+		    	android:layout_width="fill_parent"
+		    	android:layout_height="wrap_content"
+		    	android:orientation="horizontal">	
+			    <TextView
+			        android:layout_width="70dip"
+			        android:layout_height="wrap_content"
+			        android:hint="@string/phoneTip" 
+			        android:text="@string/phoneCode"
+			        android:textStyle="bold"
+			        android:layout_gravity="left|center"
+			        android:gravity="left|center" />
+			 	<LinearLayout
+			    	android:layout_width="match_parent"
+			    	android:layout_height="wrap_content"
+			    	android:orientation="horizontal">		
+				    <EditText
+				        android:id="@+id/phoneCode"
+				        android:layout_width="fill_parent"
+				        android:layout_height="wrap_content"
+				        android:inputType="phone"
+				        android:hint="@string/DstPhoneCode"
+				        android:layout_gravity="left|center">
+				    </EditText>
+				</LinearLayout>
+			</LinearLayout>
+	
+		 	<LinearLayout
+		    	android:layout_width="fill_parent"
+		    	android:layout_height="wrap_content"
+		    	android:orientation="horizontal"
+		    	android:layout_weight="1">
+		 		<TextView
+		 	       android:layout_width="118dip"
+		 	       android:layout_height="wrap_content" 
+		 	       android:text="@string/weatherArea"
+	               android:layout_gravity="left|center"
+	               android:gravity="left|center"
+		 	       android:layout_weight="1"
+		 	       android:textStyle="bold" />
+	
+			 	<LinearLayout
+			    	android:layout_width="wrap_content"
+			    	android:layout_height="wrap_content"
+			    	android:orientation="horizontal"
+			    	android:layout_weight="1">
+			     	<Spinner
+			        	android:id="@+id/sp1Provinces"
+			        	android:layout_width="wrap_content"
+			        	android:layout_height="wrap_content" 
+			        	android:layout_weight="1"/>
+			
+			    	<Spinner
+			      	  	android:id="@+id/sp2Citys"
+			      	  	android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"/>
+				</LinearLayout>
+			 </LinearLayout>
+		
+		     <LinearLayout
+		    	android:layout_width="fill_parent"
+		    	android:layout_height="wrap_content"
+		    	android:orientation="horizontal"
+		    	android:layout_weight="1">
+				<TextView 
+		        	android:layout_width="70dip" 
+		        	android:layout_height="fill_parent"
+					android:layout_gravity="left"
+					android:gravity="left|center"
+		        	android:text="@string/SetTime"
+		        	android:textStyle="bold" />
+		         
+		    	<EditText
+		     		android:id="@+id/sendTime"
+		        	android:layout_width="wrap_content"
+		        	android:layout_height="fill_parent"
+		        	android:inputType="time"
+		        	android:layout_gravity="left|center"
+		        	android:gravity="center"
+		        	android:focusable="false"
+		        	android:ems="5">
+		    	</EditText>
+			</LinearLayout>
+		
+		
+		 	<LinearLayout
+			  	android:layout_width="fill_parent"
+			   	android:layout_height="wrap_content"
+			   	android:orientation="horizontal">
+			   	<TextView 
+			       	android:layout_width="70dip" 
+			        android:layout_height="fill_parent"
+					android:layout_gravity="left"
+					android:gravity="left|center"
+					android:text="@string/repeateLabel"
+					android:textStyle="bold" /> 
+			    <RadioGroup
+			        android:id="@+id/repeatGroup"
+					android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:orientation="horizontal">
+			        <RadioButton
+			            android:id="@+id/hour24"
+			            android:layout_width="wrap_content"
+			            android:layout_height="fill_parent"
+			            android:text="@string/hour24" />
+			        <RadioButton
+			            android:id="@+id/hour12"
+			            android:layout_width="wrap_content"
+			            android:layout_height="fill_parent"
+			            android:text="@string/hour12" />
+			    </RadioGroup>
+			</LinearLayout>
+		
+		 	<LinearLayout
+		    	android:layout_width="fill_parent"
+		    	android:layout_height="wrap_content"
+		    	android:orientation="horizontal" 
+		    	android:layout_weight="1">
+		    	<CheckBox 
+		     		android:id="@+id/sendNotify"
+		     		android:layout_width="wrap_content" 
+		     		android:layout_height="wrap_content"
+		     		android:checked="false"
+		     		android:layout_weight="1" 
+		     		android:text="@string/sendNotify">
+		     	</CheckBox>
+		     	
+		     	<CheckBox 
+		     		android:id="@+id/saveSms"
+		     		android:layout_width="wrap_content" 
+		     		android:layout_height="wrap_content"
+		     		android:checked="false"
+		     		android:layout_weight="1"
+		     		android:text="@string/saveMessage">
+		     	</CheckBox>
+		
+		     	<CheckBox 
+		     		android:id="@+id/sendAlert"
+		     		android:layout_width="wrap_content" 
+		     		android:layout_height="wrap_content"
+		     		android:checked="false"
+		     		android:layout_weight="1"
+		     		android:text="@string/sendAlert">
+		     	</CheckBox>
+		    </LinearLayout>
+		   	
+			<TableLayout  
+		        android:id="@+id/table1"  
+		        android:layout_width="fill_parent"  
+		        android:layout_height="wrap_content"  
+		        android:stretchColumns="*"
+		        android:layout_marginBottom="8dip" >
+		        <TableRow>
+			    	<Button
+			        	android:id="@+id/saveData"
+			        	android:text="@string/SavePhoneCode"
+			        	android:background="@drawable/shape"
+			        	android:textStyle="bold"
+			        	android:layout_marginTop="8dip"
+			        	/>
+			        <Button
+			        	android:id="@+id/stopSms"
+			        	android:text="@string/stopSms"
+			        	android:background="@drawable/shape"
+			        	android:layout_margin="8dip"
+			        	android:textStyle="bold"
+			        	/>
+			        <Button
+			        	android:id="@+id/sendManual"
+			        	android:text="@string/sendManual"
+			        	android:background="@drawable/shape"
+			        	android:textStyle="bold"
+			        	android:layout_marginTop="8dip"
+			        	/>
+		        </TableRow>
+		    </TableLayout>
+		</LinearLayout>
+	</LinearLayout>
+</ScrollView>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">天气短信</string>
+    <string name="action_settings">关于</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="send">发送</string>
+    <string name="getWeather">获取最新天气</string>
+    <string name="SavePhoneCode">启动发送</string>
+    <string name="SetTime">发送时间:</string>
+    <string name="DstPhoneCode">手机号码,多个号码以#号分隔</string>
+    <string name="MsgExample">天气预报短信:</string>
+	<string name="phoneCode">手机号码:</string>
+	<string name="stopSms">停止发送</string>
+	<string name="weatherArea">预报地区:</string>
+	<string name="phoneTip">请输入电话号码</string>
+	<string name="hour24">24小时</string>
+	<string name="hour12">12小时</string>
+	<string name="sendManual">手动发送</string>
+	<string name="alertMsg">天气预警短信:</string>
+	<string name="repeateLabel">发送间隔:</string>
+	<string name="sendNotify">发送通知</string>
+	<string name="saveMessage">保存短信</string>
+	<string name="sendAlert">发送预警</string>
+	<string name="setting">设置</string>
+	<string name="preview">预览</string>
+</resources>
