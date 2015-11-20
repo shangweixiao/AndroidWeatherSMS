@@ -10,9 +10,11 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -33,7 +35,7 @@ public class ScheduleReceiver extends BroadcastReceiver {
 
 		String action = intent.getAction();
 
-		System.out.println("intent action:"+action.toString());
+		System.out.println("onReceive intent action:"+action.toString());
 
 		code=intent.getStringExtra("code");
 		phoneCodes=intent.getStringExtra("phoneCode");
@@ -46,6 +48,8 @@ public class ScheduleReceiver extends BroadcastReceiver {
 		}
 		
 		Intent serviceIntent = new Intent("com.example.weathertest.SENDER_SERVICE"); 
+		serviceIntent.setPackage(context.getPackageName());
+		serviceIntent.setClass(context, SenderService.class);
 		Bundle bundle = new Bundle();  
         bundle.putString("code", code);
         bundle.putString("phoneCode", phoneCodes);
@@ -149,10 +153,36 @@ public class ScheduleReceiver extends BroadcastReceiver {
 	
 	public boolean saveMeassage(Context context,String phoneCode,String content)
 	{
+		boolean canWriteSms;
+		String thread_id="";
+		String id="";
+		ContentResolver cr = context.getContentResolver();
+		String[] projection = new String[] { "_id","thread_id"};//"_id", "address", "person",, "date", "type
+		String where = " address = '"+phoneCode+"' ";
+		Cursor cur = cr.query(Uri.parse("content://sms/sent"), projection, where, null, "date desc");
+		if (null == cur)
+			return true;
+
+		if (cur.moveToFirst()) {
+			thread_id = cur.getString(cur.getColumnIndex("thread_id"));//联系人姓名列表
+			id = cur.getString(cur.getColumnIndex("_id"));
+			System.out.println("SMS:"+thread_id+" "+id);
+		}
+
+		if(!SmsWriteOpUtil.isWriteEnabled(context.getApplicationContext())) {
+		//    canWriteSms = SmsWriteOpUtil.setWriteEnabled(context.getApplicationContext(), true);
+		}
+
 		try{
 		    ContentValues values = new ContentValues();
+		    values.put("date_sent", System.currentTimeMillis());
 		    values.put("address", phoneCode);
 		    values.put("body", content);
+		    values.put("protocol", 0);
+		    values.put("read", 1);
+		    values.put("type", 2);
+		    values.put("seen", 1);
+		    values.put("thread_id",Integer.parseInt(thread_id));
 		    context.getContentResolver().insert(Uri.parse("content://sms/sent"),values);
 		    }
 		catch (Exception e) {

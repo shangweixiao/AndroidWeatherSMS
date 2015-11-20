@@ -69,8 +69,9 @@ public class MyWeatherAlert implements Callable<String> {
 			try {
 				//这里使用的是360天气预报，比较几个之后，发现这个比较靠谱
 				//url最后的101010100 是指北京，在http://cdn.weather.hao.360.cn/页面选择想要的城市，url中即可获取城市编码101110908 101110101
+				timestamp = System.currentTimeMillis();
 				HttpGet httpGet = new HttpGet(
-						"http://tq.360.cn/api/weatherquery/query?app=tq360&code="+code+"&_jsonp=renderData&_="+System.currentTimeMillis());
+						"http://tq.360.cn/api/weatherquery/querys?app=tq360&code="+code+"&t="+timestamp+"&c="+(timestamp+Long.parseLong(code))+"&_jsonp=renderData&_="+System.currentTimeMillis());
 				HttpClient httpClient = new DefaultHttpClient();
 				HttpParams params=httpClient.getParams();
 				HttpConnectionParams.setConnectionTimeout(params, 3000);
@@ -104,7 +105,7 @@ public class MyWeatherAlert implements Callable<String> {
 			System.out.println("Get weather alert error,try again.count="+i);
 			Thread.sleep(3000);
 			i+=1;
-		}while(i<10);
+		}while(i<1);
 
 		return weather;
 	}

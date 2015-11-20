@@ -28,8 +28,8 @@ public class ScheduleTask {
 
 		PendingIntent sender = PendingIntent.getBroadcast(context, requestCode,intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-		System.out.println(context);
-		System.out.println(intent);
+		System.out.println("startSchedule context "+context);
+		System.out.println("startSchedule intent "+intent);
 
 		AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 		if(System.currentTimeMillis() < calendar.getTimeInMillis())

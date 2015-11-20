@@ -382,6 +382,7 @@ public class MainActivity extends Activity {
 					Intent intent = new Intent();
 					intent.setClass(getApplicationContext(), ScheduleReceiver.class);
 					intent.setAction("com.example.weathertest.ScheduleReceiver.ACTION");
+					intent.setPackage(getPackageName());
 					intent.putExtra("phoneCode",phone);
 					intent.putExtra("code",areaCode);
 					intent.putExtra("saveSms",saveSmsChk?"1":"0");
@@ -394,6 +395,7 @@ public class MainActivity extends Activity {
 						Intent alertIntent = new Intent();
 						alertIntent.setClass(getApplicationContext(), ScheduleReceiver.class);
 						alertIntent.setAction("com.example.weathertest.ScheduleReceiver.ACTION_ALERT");
+						alertIntent.setPackage(getPackageName());
 						alertIntent.putExtra("phoneCode",phone);
 						alertIntent.putExtra("code",areaCode);
 						alertIntent.putExtra("saveSms",saveSmsChk?"1":"0");
@@ -408,6 +410,7 @@ public class MainActivity extends Activity {
 						Intent alertIntent = new Intent();
 						alertIntent.setClass(getApplicationContext(), ScheduleReceiver.class);
 						alertIntent.setAction("com.example.weathertest.ScheduleReceiver.ACTION_ALERT");
+						alertIntent.setPackage(getPackageName());
 						scheduleTask.stopTask(alertIntent, 2);
 					}
 
