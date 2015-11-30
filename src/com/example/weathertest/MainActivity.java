@@ -279,12 +279,12 @@ public class MainActivity extends Activity {
 				        	Intent intent = new Intent();
 							intent.setClass(getApplicationContext(), ScheduleReceiver.class);
 							intent.setAction("com.example.weathertest.ScheduleReceiver.ACTION");
-							scheduleTask.stopTask(intent, 1);
+							scheduleTask.stopTask(intent, 12361);
 							
 							Intent alertIntent = new Intent();
 							alertIntent.setClass(getApplicationContext(), ScheduleReceiver.class);
 							alertIntent.setAction("com.example.weathertest.ScheduleReceiver.ACTION_ALERT");
-							scheduleTask.stopTask(alertIntent, 2);
+							scheduleTask.stopTask(alertIntent, 12362);
 
 							try {
 								fileService.saveData("1234567890"+","+0+":"+0+","+"101010100,0,0,24,0");
@@ -387,7 +387,7 @@ public class MainActivity extends Activity {
 					intent.putExtra("code",areaCode);
 					intent.putExtra("saveSms",saveSmsChk?"1":"0");
 					intent.putExtra("sendNotify",sendNotifyChk?"1":"0");
-					scheduleTask.startSchedule(intent, 1, Integer.valueOf(h).intValue(), Integer.valueOf(m).intValue(),hour24.isChecked()?24:12);
+					scheduleTask.startSchedule(intent, 12361, Integer.valueOf(h).intValue(), Integer.valueOf(m).intValue(),hour24.isChecked()?24:12);
 					System.out.println("call startSchedule");
 					
 					if(sendAlertChk)
@@ -403,7 +403,7 @@ public class MainActivity extends Activity {
 						Calendar c = Calendar.getInstance();
 						
 						c.add(Calendar.MINUTE,3);
-						scheduleTask.startSchedule(alertIntent, 2, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE),1);
+						scheduleTask.startSchedule(alertIntent, 12362, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE),1);
 					}
 					else
 					{
@@ -411,7 +411,7 @@ public class MainActivity extends Activity {
 						alertIntent.setClass(getApplicationContext(), ScheduleReceiver.class);
 						alertIntent.setAction("com.example.weathertest.ScheduleReceiver.ACTION_ALERT");
 						alertIntent.setPackage(getPackageName());
-						scheduleTask.stopTask(alertIntent, 2);
+						scheduleTask.stopTask(alertIntent, 12362);
 					}
 
 					try {

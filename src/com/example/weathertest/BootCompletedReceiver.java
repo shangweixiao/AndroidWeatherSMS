@@ -79,7 +79,7 @@ public class BootCompletedReceiver extends BroadcastReceiver
 				intentSender.putExtra("saveSms",saveSmsChk?"1":"0");
 				intentSender.putExtra("sendNotify",sendNotifyChk?"1":"0");
 				System.out.println(phone+hour+minute+areaCode+saveSmsChk+sendNotifyChk+repeatCircle);
-				scheduleTask.startSchedule(intentSender, 1, hour, minute,repeatCircle);
+				scheduleTask.startSchedule(intentSender, 12361, hour, minute,repeatCircle);
 				
 				if(sendAlertChk)
 				{
@@ -93,7 +93,7 @@ public class BootCompletedReceiver extends BroadcastReceiver
 					Calendar c = Calendar.getInstance();
 					
 					c.add(Calendar.MINUTE,3);
-					scheduleTask.startSchedule(alertIntent, 2, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE),1);
+					scheduleTask.startSchedule(alertIntent, 12362, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE),1);
 				}
 			}
 		}
