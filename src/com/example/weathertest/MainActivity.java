@@ -182,7 +182,8 @@ public class MainActivity extends Activity {
 		        // 点击“返回”后的操作,这里不设置没有任何操作 
 		        	finish();
 		        } 
-		    }).show();			
+		    }).show();
+			
 		}
 
 		if(savedData.length()>0) // 文件内容：手机号码,时间,地区码,短信记录,发送通知

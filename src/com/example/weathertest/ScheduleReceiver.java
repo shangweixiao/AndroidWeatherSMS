@@ -192,9 +192,18 @@ public class ScheduleReceiver extends BroadcastReceiver {
 	}
 
 	private void showNotification(String phoneCode) {
-		Notification notification = new Notification(R.drawable.ic_launcher, "天气短信发送", System.currentTimeMillis());
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, new Intent(context, MainActivity.class), 0);
-        notification.setLatestEventInfo(context, "天气短信发送通知", "天气短信已经发送给:"+phoneCode.replace("#", ","), contentIntent);
+        //Notification notification = new Notification(R.drawable.ic_launcher, "天气短信发送", System.currentTimeMillis());
+        //notification.setLatestEventInfo(context, "天气短信发送通知", "天气短信已经发送给:"+phoneCode.replace("#", ","), contentIntent);
+        
+        Notification notification = new Notification.Builder(context)    
+        .setAutoCancel(true)    
+        .setContentTitle("天气短信发送通知")    
+        .setContentText("天气短信已经发送给:"+phoneCode.replace("#", ","))    
+        .setContentIntent(contentIntent)    
+        .setSmallIcon(R.drawable.ic_launcher)    
+        .setWhen(System.currentTimeMillis())    
+        .build();  
         
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(
                         android.content.Context.NOTIFICATION_SERVICE);

@@ -41,6 +41,7 @@ public class ScheduleTask {
 			triggerAtMillis = calendar.getTimeInMillis()+DAY_MS;
 		}
 		am.setRepeating(AlarmManager.RTC_WAKEUP,triggerAtMillis,AlarmManager.INTERVAL_HOUR*repeatCircle, sender);
+		am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAtMillis, sender);
 		System.out.println("startSchedule:"+hour+":"+minute+",Action="+intent.getAction());
 	}
 	

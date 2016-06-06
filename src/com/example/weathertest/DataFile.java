@@ -3,7 +3,6 @@ package com.example.weathertest;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-
 import android.content.Context;
 
 /**
@@ -14,6 +13,8 @@ public class DataFile {
 	private Context context;
 	final private String FILE_NAME="weather.dat";
 	final private String ALERT_FILE="weather_alert.dat";
+	final private String WEATHER_STRING_FILE="weather_string.dat";
+	final private String ALERT_STRING_FILE="alert_string.dat";
 
 	public DataFile(Context context) {
 		this.context = context;
@@ -51,8 +52,33 @@ public class DataFile {
 		outputStream.close();
 	}
 	
+	public void saveAlertString(String data) throws Exception{
+		System.out.println("save alert String:"+data);
+		FileOutputStream outputStream=context.openFileOutput(ALERT_STRING_FILE, Context.MODE_PRIVATE|Context.MODE_APPEND);
+		outputStream.write(data.getBytes());
+		outputStream.close();
+	}
+	
+	public void saveWeatherString(String data) throws Exception{
+		System.out.println("save weather string:"+data);
+		FileOutputStream outputStream=context.openFileOutput(WEATHER_STRING_FILE, Context.MODE_PRIVATE|Context.MODE_APPEND);
+		outputStream.write(data.getBytes());
+		outputStream.close();
+	}
+
+	public String getAlertString() throws Exception{
+		return getFileContent(ALERT_STRING_FILE);	
+	}
+	
+	public String getWeatherString() throws Exception{
+		return getFileContent(WEATHER_STRING_FILE);	
+	}
+	
 	public String getAlert() throws Exception{
-		FileInputStream inputStream=context.openFileInput(ALERT_FILE);
+		return getFileContent(ALERT_FILE);		
+	}
+	private String getFileContent(String fileName) throws Exception{
+		FileInputStream inputStream=context.openFileInput(fileName);
 		ByteArrayOutputStream outStream=new ByteArrayOutputStream();
 		byte[] buffer=new byte[1024*4];
 		int len=0;
@@ -61,9 +87,10 @@ public class DataFile {
 		}
 		outStream.close();
 		byte[] data1=outStream.toByteArray();
-		String name=new String(data1);
-		return name;		
+		String content=new String(data1);
+		return content;	
 	}
+
 	public void cleanAlert() throws Exception{
 		System.out.println("clean alert:");
 		FileOutputStream outputStream=context.openFileOutput(ALERT_FILE, Context.MODE_PRIVATE);
