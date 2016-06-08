@@ -78,8 +78,12 @@ public class BootCompletedReceiver extends BroadcastReceiver
 				intentSender.putExtra("code",areaCode);
 				intentSender.putExtra("saveSms",saveSmsChk?"1":"0");
 				intentSender.putExtra("sendNotify",sendNotifyChk?"1":"0");
+				intentSender.putExtra("hour",hour);
+				intentSender.putExtra("minute",minute);
+				intentSender.putExtra("repeat",repeatCircle*60); // 重复时间，单位分钟
+
 				System.out.println(phone+hour+minute+areaCode+saveSmsChk+sendNotifyChk+repeatCircle);
-				scheduleTask.startSchedule(intentSender, 12361, hour, minute,repeatCircle);
+				scheduleTask.startSchedule(intentSender, 12361, hour, minute,repeatCircle*60);
 				
 				if(sendAlertChk)
 				{
@@ -91,9 +95,12 @@ public class BootCompletedReceiver extends BroadcastReceiver
 					alertIntent.putExtra("saveSms",saveSmsChk?"1":"0");
 					alertIntent.putExtra("sendNotify",sendNotifyChk?"1":"0");
 					Calendar c = Calendar.getInstance();
-					
 					c.add(Calendar.MINUTE,3);
-					scheduleTask.startSchedule(alertIntent, 12362, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE),1);
+
+					alertIntent.putExtra("hour",c.get(Calendar.HOUR_OF_DAY));
+					alertIntent.putExtra("minute",c.get(Calendar.MINUTE));
+					alertIntent.putExtra("repeat",60); // 重复时间，单位分钟
+					scheduleTask.startSchedule(alertIntent, 12362, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE),60);
 				}
 			}
 		}

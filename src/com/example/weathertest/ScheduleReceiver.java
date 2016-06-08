@@ -3,6 +3,7 @@ package com.example.weathertest;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -17,8 +18,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.WakefulBroadcastReceiver;
 
-public class ScheduleReceiver extends BroadcastReceiver {
+public class ScheduleReceiver extends WakefulBroadcastReceiver {
 
     private Context context;
     public static final int NOTIFICATION_ID = 10001;
@@ -32,7 +34,11 @@ public class ScheduleReceiver extends BroadcastReceiver {
 	    String saveSms;
 	    String sendNotify;
 		boolean isAlert=false;
-
+		int hour;
+		int minute;
+		int repeat;
+		int requestCode=12361;
+		
 		String action = intent.getAction();
 
 		System.out.println("onReceive intent action:"+action.toString());
@@ -41,10 +47,14 @@ public class ScheduleReceiver extends BroadcastReceiver {
 		phoneCodes=intent.getStringExtra("phoneCode");
 		saveSms = intent.getStringExtra("saveSms");
 		sendNotify = intent.getStringExtra("sendNotify");
+		hour = intent.getIntExtra("hour", 7);
+		minute = intent.getIntExtra("minute", 0);
+		repeat = intent.getIntExtra("repeat", 24*60);
 		
 		//发送天气预报
 		if (action.equals("com.example.weathertest.ScheduleReceiver.ACTION_ALERT")) {
 			isAlert = true;
+			requestCode = 12362;
 		}
 		
 		Intent serviceIntent = new Intent("com.example.weathertest.SENDER_SERVICE"); 
@@ -56,9 +66,16 @@ public class ScheduleReceiver extends BroadcastReceiver {
         bundle.putString("saveSms", saveSms);
         bundle.putString("sendNotify", sendNotify);
         bundle.putString("isAlert", isAlert?"true":"false");
-        serviceIntent.putExtras(bundle);  
-          
-        context.startService(serviceIntent);
+        
+        bundle.putInt("hour",hour);
+        bundle.putInt("minute",minute);
+        bundle.putInt("repeat",repeat); // 重复时间，单位分钟
+        serviceIntent.putExtras(bundle);
+
+        ScheduleTask scheduleTask = new ScheduleTask(context);
+        scheduleTask.stopTask(intent,requestCode);
+
+        startWakefulService(context,serviceIntent);
 		//sendWeatherSms(context,phoneCodes,code,saveSms,sendNotify,isAlert);
 	}
 
@@ -94,7 +111,7 @@ public class ScheduleReceiver extends BroadcastReceiver {
 					if(-1 != alerts.indexOf(weatherMD5))
 					{
 						System.out.println("Message has been send.alerts="+alerts+"weatherMD5="+weatherMD5);
-						return; // 上次发送的与本次相同，不需要发送
+						//return; // 上次发送的与本次相同，不需要发送
 					}
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
@@ -239,5 +256,4 @@ public class ScheduleReceiver extends BroadcastReceiver {
 		}
 		return "";
 	}
-	
 }

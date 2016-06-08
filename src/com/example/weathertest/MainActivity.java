@@ -388,7 +388,11 @@ public class MainActivity extends Activity {
 					intent.putExtra("code",areaCode);
 					intent.putExtra("saveSms",saveSmsChk?"1":"0");
 					intent.putExtra("sendNotify",sendNotifyChk?"1":"0");
-					scheduleTask.startSchedule(intent, 12361, Integer.valueOf(h).intValue(), Integer.valueOf(m).intValue(),hour24.isChecked()?24:12);
+					intent.putExtra("hour",Integer.valueOf(h).intValue());
+					intent.putExtra("minute",Integer.valueOf(m).intValue());
+					intent.putExtra("repeat",hour24.isChecked()?24*60:12*60); // 重复时间，单位分钟
+					
+					scheduleTask.startSchedule(intent, 12361, Integer.valueOf(h).intValue(), Integer.valueOf(m).intValue(),hour24.isChecked()?24*60:12*60);
 					System.out.println("call startSchedule");
 					
 					if(sendAlertChk)
@@ -402,9 +406,13 @@ public class MainActivity extends Activity {
 						alertIntent.putExtra("saveSms",saveSmsChk?"1":"0");
 						alertIntent.putExtra("sendNotify",sendNotifyChk?"1":"0");
 						Calendar c = Calendar.getInstance();
-						
 						c.add(Calendar.MINUTE,3);
-						scheduleTask.startSchedule(alertIntent, 12362, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE),1);
+						
+						alertIntent.putExtra("hour",c.get(Calendar.HOUR_OF_DAY));
+						alertIntent.putExtra("minute",c.get(Calendar.MINUTE));
+						alertIntent.putExtra("repeat",5); // 重复时间，单位分钟
+
+						scheduleTask.startSchedule(alertIntent, 12362, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE),5);
 					}
 					else
 					{

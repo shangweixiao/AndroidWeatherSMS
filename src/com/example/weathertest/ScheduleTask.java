@@ -16,8 +16,7 @@ public class ScheduleTask {
 		this.context = context;
 	}
 
-	public void startSchedule(Intent intent, int requestCode, int hour,int minute,int repeatCircle) {
-		final long DAY_MS=(24*60*60*1000);
+	public void startSchedule(Intent intent, int requestCode, int hour,int minute,int repeatMinute) {
 		long triggerAtMillis;
 
 		Calendar calendar = Calendar.getInstance();
@@ -32,17 +31,16 @@ public class ScheduleTask {
 		System.out.println("startSchedule intent "+intent);
 
 		AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-		if(System.currentTimeMillis() < calendar.getTimeInMillis())
-		{
-			triggerAtMillis = calendar.getTimeInMillis();
+		// 加重复周期直到到达未来的一个时间
+		while(System.currentTimeMillis() >= calendar.getTimeInMillis()){
+			calendar.add(Calendar.MINUTE,repeatMinute);
 		}
-		else
-		{
-			triggerAtMillis = calendar.getTimeInMillis()+DAY_MS;
-		}
-		am.setRepeating(AlarmManager.RTC_WAKEUP,triggerAtMillis,AlarmManager.INTERVAL_HOUR*repeatCircle, sender);
+
+		triggerAtMillis = calendar.getTimeInMillis();
+
 		am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAtMillis, sender);
-		System.out.println("startSchedule:"+hour+":"+minute+",Action="+intent.getAction());
+		System.out.println("startSchedule:"+hour+":"+minute+" repeatMinute:"+repeatMinute+",Action="+intent.getAction());
+		System.out.println("next start:"+calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE));
 	}
 	
 	public void stopTask(Intent intent, int requestCode) {

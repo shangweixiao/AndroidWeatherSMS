@@ -1,9 +1,13 @@
 package com.example.weathertest;
 
+import java.util.Calendar;
+
 import android.app.IntentService;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.SystemClock;
 
 public class SenderService extends IntentService {
 
@@ -63,13 +67,45 @@ public class SenderService extends IntentService {
 		isAlert = bundle.getString("isAlert").equals("true");
 
 		ScheduleReceiver sr = new ScheduleReceiver();
-		sr.sendWeatherSms(getApplicationContext(),phoneCodes,code,saveSms,sendNotify,isAlert);		
+		sr.sendWeatherSms(getApplicationContext(),phoneCodes,code,saveSms,sendNotify,isAlert);
+		resetScheduleTask(getApplicationContext(),bundle);
+
+		ScheduleReceiver.completeWakefulIntent(intent);
 	}
 
 	@Override
 	public void onDestroy() {
 		System.out.println("onDestroy");
 		super.onDestroy();
+	}
+	
+	private void resetScheduleTask(Context context,Bundle bundle){
+		int requestCode = 12361; //default
+		
+		ScheduleTask scheduleTask = new ScheduleTask(context);
+		
+		Intent intent = new Intent();
+		intent.setClass(getApplicationContext(), ScheduleReceiver.class);
+		if(bundle.getString("isAlert").equals("true"))
+		{
+			requestCode = 12362;
+			intent.setAction("com.example.weathertest.ScheduleReceiver.ACTION_ALERT");
+		}
+		else
+		{
+			intent.setAction("com.example.weathertest.ScheduleReceiver.ACTION");
+		}
+		intent.setPackage(getPackageName());
+		intent.putExtra("phoneCode",bundle.getString("phoneCode"));
+		intent.putExtra("code",bundle.getString("code"));
+		intent.putExtra("saveSms",bundle.getString("saveSms"));
+		intent.putExtra("sendNotify",bundle.getString("sendNotify"));
+		intent.putExtra("hour",bundle.getInt("hour"));
+		intent.putExtra("minute",bundle.getInt("minute"));
+		intent.putExtra("repeat",bundle.getInt("repeat")); // 重复时间，单位分钟
+
+		System.out.println("call startSchedule");
+		scheduleTask.startSchedule(intent, requestCode, bundle.getInt("hour"), bundle.getInt("minute"),bundle.getInt("repeat"));
 	}
 }
 
