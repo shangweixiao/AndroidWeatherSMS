@@ -111,7 +111,7 @@ public class ScheduleReceiver extends WakefulBroadcastReceiver {
 					if(-1 != alerts.indexOf(weatherMD5))
 					{
 						System.out.println("Message has been send.alerts="+alerts+"weatherMD5="+weatherMD5);
-						//return; // 上次发送的与本次相同，不需要发送
+						return; // 上次发送的与本次相同，不需要发送
 					}
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block

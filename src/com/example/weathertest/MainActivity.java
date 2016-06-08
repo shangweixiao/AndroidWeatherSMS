@@ -410,9 +410,9 @@ public class MainActivity extends Activity {
 						
 						alertIntent.putExtra("hour",c.get(Calendar.HOUR_OF_DAY));
 						alertIntent.putExtra("minute",c.get(Calendar.MINUTE));
-						alertIntent.putExtra("repeat",5); // 重复时间，单位分钟
+						alertIntent.putExtra("repeat",60); // 重复时间，单位分钟
 
-						scheduleTask.startSchedule(alertIntent, 12362, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE),5);
+						scheduleTask.startSchedule(alertIntent, 12362, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE),60);
 					}
 					else
 					{
